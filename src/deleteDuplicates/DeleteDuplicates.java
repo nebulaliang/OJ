@@ -19,6 +19,7 @@ public class DeleteDuplicates {
         ListNode i = head;
         ListNode j = head.next;
         while(j!=null){
+        	//if same value, delete the j node
         	if(i.val==j.val){
         		j = j.next;
         		i.next = j;

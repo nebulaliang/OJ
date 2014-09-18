@@ -10,8 +10,8 @@ public class ZigZagConversion {
         // DO NOT write main() function
 		
         int len = s.length();
-        if(len==0) return "";
-        if(nRows==1) return s;
+//        if(len==0) return "";
+        if(nRows<=1) return s;
         int n = len/(nRows*2-2);
         int extra = 0;
         if(len%(nRows*2-2)>0){

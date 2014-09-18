@@ -66,9 +66,45 @@ public class ReverseBetween {
 		}
 		return result;		
 	}
+	private static void p(Object o){
+		System.out.println(o);
+	}
+	public static ListNode reverseSingle(ListNode head){
+		ListNode i = head;
+		ListNode prev = null;
+		while(i.next!=null){
+			ListNode j = i.next;
+			i.next = prev;
+			prev = i;
+			i = j;
+		}
+		i.next = prev;
+		return i;
+	}
+	private static ListNode generateList(int[] nums){
+		ListNode head = new ListNode(nums[0]);
+		ListNode p = head;
+		for(int i=1;i<nums.length;i++){
+			ListNode node = new ListNode(nums[i]);
+			p.next = node;
+			p = node;
+		}
+		p.next=null;
+		return head;
+	}
+	private static void iterate(ListNode head){
+		ListNode i = head;
+		while(i!=null){
+			p(i.val);
+			i = i.next;
+		}
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		ListNode head = generateList(new int[]{1,2,3,4,5});
+		iterate(head);
+		ListNode rever = reverseSingle(head);
+		iterate(rever);
 	}
 
 }

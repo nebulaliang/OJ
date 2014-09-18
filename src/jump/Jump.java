@@ -41,11 +41,13 @@ public class Jump {
 //		}
 //        return a[0];
 //    }
+	
+	//leetcode Jump Game II 
 	public static int jump(int[] A) {
 		//This is the O(n^2) method
 		if(A.length==1) return 0;
 		int max = A[0];
-		int step = 0;//if there is initialed as 1, at end we would return step.
+		int step = 0;//if it is initialed as 1, at end we would return step.
 		int i = 1;
 		while(max<A.length-1){
 			int m = max;

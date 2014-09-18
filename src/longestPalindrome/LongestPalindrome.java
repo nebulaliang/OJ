@@ -48,7 +48,7 @@ public class LongestPalindrome {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		boolean[][] p = new boolean[5][5]; 
-		String s = "abc";
+		String s = "abccbaabccss";
 		p(longestPalindrome(s));
 	}
 

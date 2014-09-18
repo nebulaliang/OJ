@@ -18,6 +18,32 @@ public class FirstMissingPositive {
         }
         return a.length;
     }
+	
+	
+	public static int firstMissingPositive1(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int n = A.length;
+        int taken;
+        for(int i=0;i<n;i++){
+        	taken = A[i];
+        	while(taken>0){
+        		if(taken>=n){
+        			A[i] = -1;
+        			break;
+        		}
+        		int replace_i = taken;
+        		taken = A[taken];
+        		A[replace_i] = replace_i;
+        		A[i] = -1;
+        	}
+        }
+        for(int i=1;i<n;i++){
+        	if(A[i]==-1)
+        		return i;
+        }
+        return 1;
+    }
 	public static void p(Object o){
 		System.out.println(o);
 	}

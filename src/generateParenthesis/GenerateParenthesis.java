@@ -38,6 +38,7 @@ public class GenerateParenthesis {
         return result;
     }
 	public static void generate_helper(String head,int left,int right,ArrayList<String> result){
+		//left or right means how many left or right parenthesis remain.
 		if(left<0 || right<0) return;
 		if(left==0 && right==0){
 			result.add(head);

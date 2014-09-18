@@ -1,33 +1,32 @@
 package twoSum;
 
 import java.util.HashMap;
-import java.util
 public class TwoSum {
 
 	/**
 	 * @param args
 	 */
 	public int[] twoSum(int[] numbers, int target) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+		//define a hashmap to store the history number in numbers(key is number,value is the index);
+        //go through number(n) in numbers, check whether there is number in hash x s.t. x = target - n;
+        //if yes, return the two indices
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-        int result1=0;
-        int result2=0;
         for(int i=0;i<numbers.length;i++){
-        	Integer value = new Integer(numbers[i]);
-        	Integer diff = target-value;
-        	if(map.containsKey(diff)){
-        		result1=map.get(diff);
-        		result2=i+1;
-        		return new int[]{result1,result2};
-        	}
-        	if(!map.containsKey(value)){
-        		map.put(value, i+1);
-        	}Integer.MIN_VALUE
-        	Math.max(1,3);
-        	
+            int cur_index = i+1;
+            Integer num = new Integer(numbers[i]);
+            Integer diff = new Integer(target - num);
+            //check whether there is number x in hash s.t. x = target - n;
+            if(map.containsKey(diff)){
+                int index = map.get(diff).intValue();
+                return new int[]{index,cur_index};
+            }
+            //if the hash has same key, do nothing
+            if(!map.containsKey(num)){
+                map.put(num,cur_index);
+            }
+            
         }
-        return new int[]{result1,result2};
+        return null;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
