@@ -1,5 +1,5 @@
 package sortColors;
-import util.U;
+import util.MyUtil;
 public class SortColors {
 
 	/**
@@ -7,7 +7,7 @@ public class SortColors {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		U.p("s");
+		MyUtil.p("s");
 	}
 
 	public void sortColors(int[] A) {
