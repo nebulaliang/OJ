@@ -2,6 +2,7 @@ package combinationSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 /*
 Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
 The same repeated number may be chosen from C unlimited number of times.
@@ -18,42 +19,36 @@ A solution set is:
 */
 public class CombinationSum {
 
-	public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates,
+	public List<List<Integer>> combinationSum(int[] candidates,
 			int target) {
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		if (candidates == null || candidates.length == 0) {
-			return result;
-		}
-
-		Arrays.sort(candidates);
-		ArrayList<Integer> temp = new ArrayList<Integer>();
-		dfs(result, temp, target, 0, candidates);
-
-		return result;
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if (candidates == null || candidates.length == 0) {
+            return res;
+        }
+        Arrays.sort(candidates);
+        List<Integer> temp = new ArrayList<Integer>();
+        dfs(res, temp, candidates, target);
+        return res;
 	}
 
-	private void dfs(ArrayList<ArrayList<Integer>> result,
-			ArrayList<Integer> temp, int target, int start, int[] candidates) {
+	private void dfs(List<List<Integer>> res, List<Integer> temp, int[] candidates, int target) {
 		if (target == 0) {
-			result.add(new ArrayList<Integer>(temp));
-		}
-
-		int passed = -1;
-		for (int i = start; i < candidates.length; i++) {
-			int candidate = candidates[i];
-			if (candidate > target) {
-				break;
-			}
-			if (passed == candidate) {
-				continue;
-			}
-
-			temp.add(candidate);
-			dfs(result, temp, target - candidate, i, candidates);
-			temp.remove(temp.size() - 1);
-
-			passed = candidate;
-		}
+            res.add(new ArrayList(temp));
+            return;
+        }
+        
+        for (int i = 0; i < candidates.length; i++) {
+            int num = candidates[i];
+            if (num > target) {
+                break;
+            }
+            if (temp != null && temp.size() > 0 && num < temp.get(temp.size() - 1)) {
+                continue;
+            }
+            temp.add(num);
+            dfs(res, temp, candidates, target - num);
+            temp.remove(temp.size() - 1);
+        }
 	}
 
 }
