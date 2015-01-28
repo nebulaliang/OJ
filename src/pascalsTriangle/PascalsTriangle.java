@@ -1,55 +1,53 @@
 package pascalsTriangle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PascalsTriangle {
 
-	/**
-	 * @param args
-	 */
-	public ArrayList<ArrayList<Integer>> generate(int numRows) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> temp = new ArrayList<Integer>();
-		temp.add(new Integer(1));
-		if(numRows==0) return result;
-		result.add(temp);
-		if(numRows==1) return result;
-        for(int i=1;i<numRows;i++){
-        	ArrayList<Integer> new_one = getNext(temp);
-        	result.add(new_one);
-        	temp = new_one;
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (numRows == 0) {
+            return result;
         }
+
+        List<Integer> cur = new ArrayList<Integer>();
+        cur.add(1);
+        int level = 1;
+        result.add(new ArrayList<Integer>(cur));
+        while (level < numRows) {
+            List<Integer> newList = new ArrayList<Integer>();
+            int last = 0;
+            for (Integer num : cur) {
+                newList.add(last + num);
+                last = num;
+            }
+            newList.add(1);
+            result.add(newList);
+            cur = newList;
+            level++;
+        }
+
         return result;
     }
-	public ArrayList<Integer> getRow(int rowIndex) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<Integer> temp = new ArrayList<Integer>();
-		temp.add(new Integer(1));
-		if(rowIndex==0) return temp;
-        for(int i=1;i<rowIndex;i++){
-        	ArrayList<Integer> new_one = getNext(temp);
-        	temp = new_one;
+
+    public List<Integer> getRow(int rowIndex) {
+
+        List<Integer> cur = new ArrayList<Integer>();
+        cur.add(1);
+        int level = 0;
+        while (level < rowIndex) {
+            List<Integer> newList = new ArrayList<Integer>();
+            int last = 0;
+            for (Integer num : cur) {
+                newList.add(last + num);
+                last = num;
+            }
+            newList.add(1);
+            cur = newList;
+            level++;
         }
-        return temp;
+
+        return cur;
     }
-	public static ArrayList<Integer> getNext(ArrayList<Integer> ints){
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		result.add(new Integer(1));
-		Integer last = ints.get(0);
-		for(int i=1;i<ints.size();i++){
-			Integer now = ints.get(i);
-			result.add(new Integer(last+now));
-			last = now;
-		}
-		result.add(new Integer(1));
-		return result;
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
