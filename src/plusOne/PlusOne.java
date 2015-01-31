@@ -1,39 +1,32 @@
 package plusOne;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class PlusOne {
 
-	/**
-	 * @param args
-	 */
-	public static int[] plusOne(int[] digits) {
+    public int[] plusOne(int[] digits) {
+        if (digits == null || digits.length == 0) {
+            return null;
+        }
         int n = digits.length;
-        int[] result = new int[n+1]; 
-        int carry = 1;
-        int i = n-1;
-        int j=i+1;
-        while(i>=0){
-        int add = digits[i]+carry;
-        result[j] = add%10;
-        carry = add/10;
-        i--;j--;
+        int[] res = new int[n];
+        int carry = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            int val = digits[i];
+            int sum = val + carry;
+            if (i == n - 1) {
+                sum++;
+            }
+            res[i] = sum % 10;
+            carry = sum / 10;
         }
-        if(carry==0) {
-        	return Arrays.copyOfRange(result, 1, n+1);
+
+        if (carry >= 1) {
+            int[] result = new int[n + 1];
+            result[0] = carry;
+            System.arraycopy(res, 0, result, 1, n);
+            return result;
+        } else {
+            return res;
         }
-        result[0]=carry;
-        return result;
     }
-	public static void p(Object o){
-		System.out.println(o);
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] num = new int[]{1,2,3};
-		int[] x = plusOne(num);
-		//p(x[0]);p(x[1]);p(x[2]);
-	}
 
 }
