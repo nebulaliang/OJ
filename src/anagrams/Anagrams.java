@@ -44,7 +44,11 @@ public class Anagrams {
 	 * Any word or phrase that exactly reproduces the letters in another order
 	 * is an anagram.
 	 * 
-	 * e.g. "good", "god", "dog", "dag", "tan", "ant" ant tan dag dog god good
+	 * e.g. "good", "god", "dog", "dag", "tan", "ant" 
+	 * ant tan 
+	 * dag 
+	 * dog god 
+	 * good
 	 */
 	public static List<List<String>> anaGen(List<String> inputWords) {
 
@@ -53,7 +57,6 @@ public class Anagrams {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 
 		for (String cur : inputWords) {
-
 			char[] array = cur.toCharArray();
 			Arrays.sort(array);
 			String str = new String(array);
