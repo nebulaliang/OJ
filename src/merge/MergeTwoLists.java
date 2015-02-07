@@ -29,4 +29,25 @@ public class MergeTwoLists {
         return dummy.next;
     }
 
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode mid = findMid(head);
+        ListNode right = sortList(mid.next);
+        mid.next = null;
+        ListNode left = sortList(head);
+        return mergeTwoLists(left, right);
+    }
+
+    private ListNode findMid(ListNode head) {
+        ListNode i = head;
+        ListNode j = head;
+        while (j.next != null && j.next.next != null) {
+            i = i.next;
+            j = j.next.next;
+        }
+        return i;
+    }
 }
