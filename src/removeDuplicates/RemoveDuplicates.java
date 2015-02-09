@@ -1,67 +1,50 @@
 package removeDuplicates;
 
-import java.util.Arrays;
-
 public class RemoveDuplicates {
 
-	/**
-	 * @param args
-	 */
-	public static int removeDuplicates(int[] A) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int n = A.length;
-        if(n==0) return 0;
+    public int removeDuplicates(int[] A) {
+        int len = A.length;
+        if (len == 0) {
+            return 0;
+        }
         int i = 0;
         int j = 1;
-        int current = A[0];
-        while(j<n){
-        	if(A[j]==current){
-        		j++;
-        	}
-        	else{
-        		i++;
-        		//A[i]=A[j];
-        		current = A[j];
-        	}
+        int cur = A[i];
+
+        while (j < len) {
+            if (A[j] == cur) {
+                j++;
+            } else {
+                A[++i] = A[j];
+                cur = A[j];
+            }
         }
-        return i+1;
+
+        return i + 1;
     }
-	//This allows a element twice
-	public static int removeDuplicates1(int[] A) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		int n = A.length;
-        if(n==0) return 0;
+
+    public int removeDuplicates2(int[] A) {
+        int len = A.length;
+        if (len == 0) {
+            return 0;
+        }
         int i = 0;
         int j = 1;
-        int current = A[0];
-        boolean dup = false;
-        while(j<n){
-        	if(A[j]==current){
-        		if(!dup){
-        			i++;
-            		A[i]=A[j];
-            		dup=true;
-        		}
-        	}
-        	else{
-        		i++;
-        		A[i]=A[j];
-        		current = A[j];
-        		dup=false;
-        	}
-        	j++;
+        int cur = A[i];
+        boolean duplicate = false;
+        while (j < len) {
+            if (A[j] == cur && !duplicate) {
+                A[++i] = A[j];
+                duplicate = true;
+            } else if (A[j] != cur) {
+                A[++i] = A[j];
+                cur = A[i];
+                duplicate = false;
+            }
+            j++;
         }
-        return i+1;
+
+        return i + 1;
     }
-	public static void p(Object o){
-		System.out.println(o);
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] num = new int[]{1,1,2,2,3};
-		p(removeDuplicates1(num));
-	}
 
 }
