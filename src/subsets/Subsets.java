@@ -5,10 +5,7 @@ import java.util.Arrays;
 
 public class Subsets {
 
-	/**
-	 * @param args
-	 */
-	//	Subsets(leetcode 105)
+	//	Subsets
 	//	Given a set of distinct integers, S, return all possible subsets.
 	//
 	//	Note:
@@ -27,51 +24,44 @@ public class Subsets {
 	//	  [1,2],
 	//	  []
 	//	]
-	public static ArrayList<ArrayList<Integer>> subsets(int[] S) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		int n = S.length;
-		Arrays.sort(S);
-		ArrayList<Integer> sub = new ArrayList<Integer>();
-		result.add(sub);
-		ArrayList<ArrayList<Integer>> temp = result;
-		for(int i=0;i<n;i++){
-			temp = getNext(temp,S);
-			result.addAll(temp);
-		}
-		return result;
+    //method 1: BFS
+    public ArrayList<ArrayList<Integer>> subsets_BFS(int[] S) {
+        Arrays.sort(S);
+         ArrayList<ArrayList<Integer>> subsets = new ArrayList<ArrayList<Integer>>();
+         subsets.add(new ArrayList<Integer>());
+          for (int i = 0; i < S.length; i++) {
+              int size = subsets.size();
+             for (int j = 0; j < size; j++) {
+                  ArrayList<Integer> subset = new ArrayList<Integer>(
+                         subsets.get(j));
+                subset.add(S[i]);
+                 subsets.add(subset);
+            }
+         }
+         return subsets;
     }
-	public static ArrayList<ArrayList<Integer>> getNext(ArrayList<ArrayList<Integer>> list,int[] S){
-		int n = S.length;
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		int size = list.size();
-		if(size==1){
-		for(int i=0;i<n;i++){
-			ArrayList<Integer> temp = new ArrayList<Integer>();
-			temp.add(new Integer(S[i]));
-			result.add(temp);
-		}
-		}
-		else{
-			for(int k=0;k<size;k++){
-				ArrayList<Integer> temp = (ArrayList<Integer>)list.get(k).clone();
-				Integer last = temp.get(temp.size()-1);
-				for(int i=n-1;i>=0;i--){
-					if(S[i]>last){
-						ArrayList<Integer> x = (ArrayList<Integer>)temp.clone();
-						x.add(new Integer(S[i]));
-						result.add(x);
-					}
-					else{
-						break;
-					}
-				}
-			}
-		}
-		return result;
-	}
-	//	Subsets II (leetcode 106)
+    //method 2: DFS
+    public ArrayList<ArrayList<Integer>> subsets_DFS(int[] S) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if(S == null || S.length == 0) {
+            return result;
+        }
+        Arrays.sort(S);
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        dfs(result, temp, S, 0);
+        return result;
+    }
+    
+    public static void dfs(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> temp, int[] S, int start){
+        result.add(new ArrayList<Integer>(temp));
+        
+        for(int i = start; i < S.length; i++){
+            temp.add(S[i]);
+            dfs(result, temp, S, i + 1);
+            temp.remove(temp.size() - 1);
+        }
+    }
+	//	Subsets II 
 	//	Given a collection of integers that might contain duplicates, S, return all possible subsets.
 	//
 	//	Note:
@@ -88,14 +78,28 @@ public class Subsets {
 	//	  [1,2],
 	//	  []
 	//	]
-	public static void p(Object o){
-		System.out.println(o);
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] s = new int[]{1,2,3};
-		p(subsets(s));
-		
-	}
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] num) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if(num == null || num.length == 0) {
+            return result;
+        }
+        Arrays.sort(num);
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        dfs(result, temp, num, 0);
+        return result;
+    }
+    
+    public static void helper(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> temp, int[] S, int start){
+        result.add(new ArrayList<Integer>(temp));
+        
+        for(int i = start; i < S.length; i++){
+            if(i != start && S[i] == S[i - 1]){
+                continue;
+            }
+            temp.add(S[i]);
+            helper(result, temp, S, i + 1);
+            temp.remove(temp.size() - 1);
+        }
+    }
 
 }
