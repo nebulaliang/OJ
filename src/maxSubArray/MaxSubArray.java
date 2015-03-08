@@ -2,53 +2,22 @@ package maxSubArray;
 
 public class MaxSubArray {
 
-	/**
-	 * @param args
-	 */
-	// O(n) method
-	public static int maxSubArray(int[] A) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
+    public int maxSubArray(int[] A) {
         int n = A.length;
-        int max_element = Integer.MIN_VALUE;
-        int i=0;
-        for(;i<n;i++){
-        	int element = A[i];
-        	max_element = Math.max(max_element, element);
-        	if(A[i]>=0){i++;break;}
+        int[] prefixSum = new int[n];
+        prefixSum[0] = A[0];
+        for (int i = 1; i < n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + A[i];
         }
-        if(i==n) return max_element;
-        i--;
-        int max=A[i];
-        int sum=0;
-        for(;i<n;i++){
-        	int e = A[i];
-        	if(e<=0) {sum+=e;}
-        	else{
-        		if(sum>=0){
-        			sum+=e;
-        			max = Math.max(max, sum);
-        		}
-        		else{
-        			sum+=e;
-        			max = Math.max(max, e);
-        			sum=0;
-        			i--;
-        		}
-        	}
+        
+        int min = prefixSum[0];
+        int max = prefixSum[0];
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, Math.max(prefixSum[i],prefixSum[i] - min));
+            min = Math.min(min, prefixSum[i]);
         }
+        
         return max;
     }
-	public static int maxSubArray1(int[] A){
-		return 0;
-	}
-	public static void p(Object o){
-		System.out.println(o);
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] a = new int[]{1,2};
-		p(maxSubArray(a));
-	}
 
 }
