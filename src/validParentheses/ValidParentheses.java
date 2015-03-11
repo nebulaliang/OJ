@@ -4,40 +4,40 @@ import java.util.Stack;
 
 public class ValidParentheses {
 
-	/**
-	 * @param args
-	 */
-	 public boolean isValid(String s) {
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
-	        Stack<String> st = new Stack<String>();
-	        for(int i=0;i<s.length();i++){
-	        	char c = s.charAt(i);
-	        	if(c=='(' || c=='[' || c=='{'){
-	        		st.push(Character.toString(c));
-	        	}
-	        	else{
-	        		if(st.empty()) return false;
-	        		if(c==')'){
-	        			if(!st.peek().equals("(")) return false;
-	        			st.pop();
-	        		}
-	        		else if(c==']'){
-	        			if(!st.peek().equals("[")) return false;
-	        			st.pop();
-	        		}
-	        		else{
-	        			if(!st.peek().equals("{")) return false;
-	        			st.pop();
-	        		}
-	        	}
-	        }
-	        if(!st.empty()) return false;
-	        return true;
-	    }
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+    public boolean isValid(String s) {
+        if(s == null || s.length() == 0) {
+            return true;
+        }
+        
+        int n = s.length();
+        if (n % 2 == 1) {
+            return false;
+        }
+        
+        Stack<Character> stack = new Stack<Character>();
+        char[] chars = s.toCharArray();
+        for(int i = 0; i < n; i++) {
+            char c = chars[i];
+            if(c == ')' || c == ']' || c == '}')  {
+                if(stack.isEmpty()) {
+                    return false;
+                } else {
+                    char first = stack.peek().charValue();
+                    if( (c == ')' && (first == '[' || first == '{')) ||
+                        (c == ']' && (first == '(' || first == '{')) ||
+                        (c == '}' && (first == '[' || first == '('))
+                        ) {
+                            return false;
+                        } else {
+                            stack.pop();
+                        }
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        
+        return stack.isEmpty();
+    }
 
 }
