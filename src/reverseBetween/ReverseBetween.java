@@ -1,110 +1,59 @@
 package reverseBetween;
 
+import util.ListNode;
+
 public class ReverseBetween {
 
-	/**
-	 * @param args
-	 */
-	//Reverse Nodes in k-Group(leetcode 86)
-	public static ListNode reverseBetween(ListNode head, int m, int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		if(head.next==null) return head;
-    	if(m==n) return head;
-		ListNode new_h = new ListNode(-1);
-        new_h.next = head;
-        ListNode before = new_h;
-        int count = 0;
-        for(;count<m-1;count++){
-        	before = before.next;
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || head.next == null || k == 1) {
+            return head;
         }
-        count++;
-        ListNode first_before = before;
-        ListNode first = before.next;
-        before = before.next;
-        ListNode i = before.next;
-        ListNode j = i.next;
-        for(;count<n-1;count++){
-            i.next = before;
-        	before = i;
-        	i = j;
-        	j = i.next;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode origin = head;
+        ListNode next = head;
+        for (int i = 0; i < k; i++) {
+            if (next != null) {
+                next = next.next;
+            } else {
+                return head;
+            }
         }
-        first_before.next = i;
-        i.next = before;
-        first.next = j;
-        return new_h.next;
+        dummy.next = reverseBetween(head, 1, k);
+        origin.next = reverseKGroup(next, k);
+        return dummy.next;
     }
-	//  Reverse Linked List II(leetcode 85)
-	//	Reverse a linked list from position m to n. Do it in-place and in one-pass.
-	//
-	//	For example:
-	//	Given 1->2->3->4->5->NULL, m = 2 and n = 4,
-	//
-	//	return 1->4->3->2->5->NULL.
-	public ListNode reverseKGroup(ListNode head, int k) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-		int n = 0;
-		ListNode i = head;
-		while(i!=null){
-			i = i.next;
-			n++;
-		}
-		int[][] range = getList(n,k);
-		for(int j=0;j<range.length;j++){
-			head = reverseBetween(head,range[j][0],range[j][1]);
-		}
-		return head;
+    
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (head == null) {
+            return null;
+        }
+        if (m == n) {
+            return head;
+        }
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        head = dummy;
+        for (int i = 1; i < m; i++) {
+            head = head.next;
+        }
+        //after for loop, head point to the m - 1 node
+        ListNode before = head;
+        ListNode mNode = before.next;
+        ListNode workNode = mNode;
+        ListNode nextNode = workNode.next;
+        
+        for (int i = m; i < n; i++) {
+            ListNode temp = nextNode.next;
+            nextNode.next = workNode;
+            workNode = nextNode;
+            nextNode = temp;
+        }
+        
+        mNode.next = nextNode;
+        before.next = workNode;
+        
+        return dummy.next;
     }
-	public static int[][] getList(int n, int k){
-		int time = n/k;
-		int result[][] = new int[time][2];
-		for(int i=0;i<time;i++){
-			result[i][0] = i*k+1;
-			result[i][1] = (i+1)*k;
-		}
-		return result;		
-	}
-	private static void p(Object o){
-		System.out.println(o);
-	}
-	public static ListNode reverseSingle(ListNode head){
-		ListNode i = head;
-		ListNode prev = null;
-		while(i.next!=null){
-			ListNode j = i.next;
-			i.next = prev;
-			prev = i;
-			i = j;
-		}
-		i.next = prev;
-		return i;
-	}
-	private static ListNode generateList(int[] nums){
-		ListNode head = new ListNode(nums[0]);
-		ListNode p = head;
-		for(int i=1;i<nums.length;i++){
-			ListNode node = new ListNode(nums[i]);
-			p.next = node;
-			p = node;
-		}
-		p.next=null;
-		return head;
-	}
-	private static void iterate(ListNode head){
-		ListNode i = head;
-		while(i!=null){
-			p(i.val);
-			i = i.next;
-		}
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ListNode head = generateList(new int[]{1,2,3,4,5});
-		iterate(head);
-		ListNode rever = reverseSingle(head);
-		iterate(rever);
-	}
 
 }
