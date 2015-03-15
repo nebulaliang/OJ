@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class SpiralOrder {
 
-	/**
-	 * @param args
-	 */
 	//	Spiral Matrix(leetcode 100)
 	//	Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
 	//
@@ -20,8 +17,6 @@ public class SpiralOrder {
 	//	]
 	//	You should return [1,2,3,6,9,8,7,4,5].
 	public ArrayList<Integer> spiralOrder(int[][] matrix) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
 		int i, k = 0, l = 0;
 		 
 	    /*  k - starting row index
@@ -85,8 +80,6 @@ public class SpiralOrder {
 	//	 [ 7, 6, 5 ]
 	//	]
 	public int[][] generateMatrix(int n) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
 		int i, k = 0, l = 0;
 		 
 	    /*  k - starting row index
@@ -141,9 +134,5 @@ public class SpiralOrder {
 	    }
 	    return matrix;
     }
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
