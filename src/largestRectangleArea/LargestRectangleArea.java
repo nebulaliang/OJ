@@ -1,30 +1,28 @@
 package largestRectangleArea;
 
+import java.util.Stack;
+
 public class LargestRectangleArea {
 
-	/**
-	 * @param args
-	 */
-	public int largestRectangleArea(int[] height) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        int n = height.length;
-        int[] pittfall = new int[n];
-        for(int i=1;i<n;i++){
-        	if(height[i]<height[i-1]){
-        		pittfall[i]=height[i];
-        	}
+    public int largestRectangleArea(int[] height) {
+        if(height == null || height.length == 0){
+            return 0;
         }
-        for(int i=0;i<n;i++){
-        	
+        
+        Stack<Integer> stack = new Stack<Integer>();
+        int max = 0;
+        
+        for(int i = 0; i <= height.length; i++){
+            int cur_height = (i == height.length) ? -1 : height[i];
+            while(!stack.isEmpty() && cur_height <= height[stack.peek()]){
+                int h = height[stack.pop()];
+                int w = stack.isEmpty()? i : i - stack.peek() - 1;
+                max = Math.max(max, h * w);
+            }
+            stack.push(i);
         }
+        
+        return max;
     }
-	public static void p(Object o){
-		System.out.println(o);
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
