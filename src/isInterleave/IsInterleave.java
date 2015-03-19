@@ -6,8 +6,6 @@ public class IsInterleave {
 	 * @param args
 	 */
 	 public static boolean isInterleave(String s1, String s2, String s3) {
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
 	        int n1 = s1.length();
 	        int n2 = s2.length();
 	        int n3 = s3.length();
