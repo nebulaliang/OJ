@@ -2,13 +2,7 @@ package sudoku;
 
 public class Sudoku {
 
-	/**
-	 * @param args
-	 */
    public static boolean isValidSudoku(char[][] board) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-       
 	   for(int i=0;i<9;i++){
 		   boolean[] line = new boolean[9]; 
 	       boolean[] col = new boolean[9];
@@ -59,15 +53,10 @@ public class Sudoku {
 		System.out.print(o);
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		char[][] board = new char[9][9];
 		String[] s = new String[]{"4........",".........",".........","4........",".........",".........",".........",".........","........."};
 		board = init(s);
 		p(isValidSudoku(board));
-//		int[] a = new int[]{0,3,6};
-//		for(int i:a){
-//			p(i);
-//		}
 	}
 
 }
